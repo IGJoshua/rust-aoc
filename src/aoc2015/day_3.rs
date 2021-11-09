@@ -55,7 +55,7 @@ mod test {
         let input = read_input("res/2015/day_3.txt").unwrap();
 
         let result = part_1(&input);
-        assert_eq!(result, 2572, "the result was the correct square footage")
+        assert_eq!(result, 2572, "the result was the correct number of houses")
     }
 
     #[test]
@@ -63,6 +63,6 @@ mod test {
         let input = read_input("res/2015/day_3.txt").unwrap();
 
         let result = part_2(&input);
-        assert_eq!(result, 2631, "the result was the correct square footage")
+        assert_eq!(result, 2631, "the result was the correct number of houses")
     }
 }
