@@ -62,9 +62,6 @@ mod test {
     }
 
     #[test]
-    fn part_2_examples() {}
-
-    #[test]
     fn test_part_2() {
         let input = read_input("res/2015/day_2.txt").unwrap();
 
