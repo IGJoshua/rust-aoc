@@ -1,11 +1,13 @@
 pub fn part_1(input: &str) -> i64 {
-    input.lines()
+    input
+        .lines()
         .flat_map(|line| line.chars())
         .map(|c| match c {
             '(' => 1,
             ')' => -1,
             _ => 0,
-        }).sum()
+        })
+        .sum()
 }
 
 pub fn part_2(input: &str) -> usize {
@@ -33,14 +35,11 @@ pub fn part_2(input: &str) -> usize {
 #[cfg(test)]
 mod test {
     use super::*;
-    use std::fs::File;
-    use std::io::Read;
+    use crate::utils::read_input;
 
     #[test]
     fn test_part_1() {
-        let mut f = File::open("res/2015/day_1.txt").unwrap();
-        let mut input = String::new();
-        f.read_to_string(&mut input).unwrap();
+        let input = read_input("res/2015/day_1.txt").unwrap();
 
         let result = part_1(&input);
         assert_eq!(result, 232, "the result was correct floor");
@@ -48,9 +47,7 @@ mod test {
 
     #[test]
     fn test_part_2() {
-        let mut f = File::open("res/2015/day_1.txt").unwrap();
-        let mut input = String::new();
-        f.read_to_string(&mut input).unwrap();
+        let input = read_input("res/2015/day_1.txt").unwrap();
 
         let index = part_2(&input);
         assert_eq!(index, 1783, "the result was correct instruction");
