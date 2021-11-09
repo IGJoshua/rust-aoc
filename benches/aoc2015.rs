@@ -20,6 +20,15 @@ pub fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("day 2 part 2", |b| {
         b.iter(|| aoc2015::day_2::part_2(black_box(&input)))
     });
+
+    let input = read_input("res/2015/day_3.txt").unwrap();
+
+    c.bench_function("day 3 part 1", |b| {
+        b.iter(|| aoc2015::day_3::part_1(black_box(&input)))
+    });
+    c.bench_function("day 3 part 2", |b| {
+        b.iter(|| aoc2015::day_3::part_2(black_box(&input)))
+    });
 }
 
 criterion_group!(benches, criterion_benchmark);
