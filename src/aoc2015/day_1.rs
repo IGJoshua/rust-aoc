@@ -11,25 +11,23 @@ pub fn part_1(input: &str) -> i64 {
 }
 
 pub fn part_2(input: &str) -> usize {
-    let mut floor = 0;
-    let mut idx = 0;
-    'outer: for line in input.lines() {
-        for c in line.chars() {
-            idx += 1;
-
-            floor += match c {
-                '(' => 1,
-                ')' => -1,
-                _ => 0,
-            };
-
-            if floor < 0 {
-                break 'outer;
+    input
+        .lines()
+        .flat_map(|line| line.chars())
+        .map(|c| match c {
+            '(' => 1,
+            ')' => -1,
+            _ => 0,
+        })
+        .enumerate()
+        .try_fold(0i32, |floor, (idx, dir)| {
+            if floor >= 0 {
+                Ok(floor + dir)
+            } else {
+                Err(idx)
             }
-        }
-    }
-
-    idx
+        })
+        .unwrap_err()
 }
 
 #[cfg(test)]
