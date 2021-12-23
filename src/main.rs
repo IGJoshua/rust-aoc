@@ -1,5 +1,5 @@
-use std::fmt::Display;
 use rust_aoc::{aoc2015, utils};
+use std::fmt::Display;
 
 fn display_day<F1, F2, Output1, Output2>(year: u32, day: u32, part_1: F1, part_2: F2)
 where
