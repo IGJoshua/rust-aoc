@@ -50,6 +50,6 @@ mod test {
         let input = read_input("res/2015/day_4.txt").unwrap().trim().to_string();
 
         let result = part_2(&input);
-        assert_eq!(result, 0, "the result was the correct index")
+        assert_eq!(result, 1038736, "the result was the correct index")
     }
 }
