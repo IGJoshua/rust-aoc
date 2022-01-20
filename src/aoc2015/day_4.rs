@@ -1,9 +1,11 @@
-pub fn part_1(input: &str) -> u128 {
+extern crate md5;
+
+fn search_for(input: &str, search_text: &str) -> i64 {
     for n in 1.. {
         let digest = md5::compute(format!("{}{}", input, n));
         let hash = format!("{:x}", digest);
 
-        if hash.starts_with("00000") {
+        if hash.starts_with(search_text) {
             println!("{}", hash);
             return n;
         }
@@ -12,18 +14,12 @@ pub fn part_1(input: &str) -> u128 {
     unreachable!();
 }
 
-pub fn part_2(input: &str) -> u128 {
-    for n in 1.. {
-        let digest = md5::compute(format!("{}{}", input, n));
-        let hash = format!("{:x}", digest);
+pub fn part_1(input: &str) -> i64 {
+    search_for(input, "00000")
+}
 
-        if hash.starts_with("000000") {
-            println!("{}", hash);
-            return n;
-        }
-    }
-
-    unreachable!();
+pub fn part_2(input: &str) -> i64 {
+    search_for(input, "000000")
 }
 
 #[cfg(test)]
