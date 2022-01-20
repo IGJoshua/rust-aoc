@@ -1,12 +1,21 @@
 extern crate md5;
 
+use std::fmt::Write;
+
 fn search_for(input: &str, search_text: &str) -> i64 {
+    let mut num_str = String::with_capacity(input.len() + 32);
+    let mut hash = String::with_capacity(64);
+
     for n in 1.. {
-        let digest = md5::compute(format!("{}{}", input, n));
-        let hash = format!("{:x}", digest);
+        // Ensure we're starting with empty strings when we write in the input
+        num_str.clear();
+        hash.clear();
+
+        write!(&mut num_str, "{}{}", input, n).unwrap();
+        let digest = md5::compute(&num_str);
+        write!(&mut hash, "{:x}", digest).unwrap();
 
         if hash.starts_with(search_text) {
-            println!("{}", hash);
             return n;
         }
     }
