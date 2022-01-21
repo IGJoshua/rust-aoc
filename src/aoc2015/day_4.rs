@@ -2,9 +2,9 @@ extern crate crossbeam;
 extern crate md5;
 extern crate num_cpus;
 
+use std::fmt::Write;
 use std::ops::Range;
 use std::sync::atomic::{AtomicI64, Ordering};
-use std::fmt::Write;
 
 fn search_range(input: &str, search_text: &str, range: Range<i64>) -> Option<i64> {
     let mut num_str = String::with_capacity(input.len() + 32);
@@ -28,7 +28,6 @@ fn search_range(input: &str, search_text: &str, range: Range<i64>) -> Option<i64
 }
 
 fn search_for<'a>(input: &'a str, search_text: &'a str) -> i64 {
-
     let next_index = AtomicI64::new(0i64);
     let result = AtomicI64::new(-1i64);
 
@@ -42,19 +41,23 @@ fn search_for<'a>(input: &'a str, search_text: &'a str) -> i64 {
                         return;
                     }
 
-                    if let Some(res) = search_range(input, search_text, start_idx..start_idx+10000) {
+                    if let Some(res) =
+                        search_range(input, search_text, start_idx..start_idx + 10000)
+                    {
                         next_index.store(i64::MIN, Ordering::Release);
 
                         // Store the result, but only if we haven't stored
                         // before. Either way return.
-                        match result.compare_exchange(-1, res, Ordering::AcqRel, Ordering::Acquire) {
+                        match result.compare_exchange(-1, res, Ordering::AcqRel, Ordering::Acquire)
+                        {
                             _ => return,
                         }
                     }
                 }
             });
         }
-    }).unwrap();
+    })
+    .unwrap();
 
     result.load(Ordering::Acquire)
 }
