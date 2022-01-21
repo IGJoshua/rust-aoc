@@ -22,6 +22,7 @@ fn aoc2015() {
     display_day(2015, 2, aoc2015::day_2::part_1, aoc2015::day_2::part_2);
     display_day(2015, 3, aoc2015::day_3::part_1, aoc2015::day_3::part_2);
     display_day(2015, 4, aoc2015::day_4::part_1, aoc2015::day_4::part_2);
+    display_day(2015, 5, aoc2015::day_5::part_1, aoc2015::day_5::part_2);
 }
 
 fn main() {

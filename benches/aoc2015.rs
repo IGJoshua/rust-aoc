@@ -34,6 +34,14 @@ pub fn individual_benchmarks(c: &mut Criterion) {
     c.bench_function("2015 day 4 part 2", |b| {
         b.iter(|| aoc2015::day_4::part_2(black_box(&input)))
     });
+
+    let input = read_input("res/2015/day_5.txt").unwrap().trim().to_string();
+    c.bench_function("2015 day 5 part 1", |b| {
+        b.iter(|| aoc2015::day_5::part_1(black_box(&input)))
+    });
+    c.bench_function("2015 day 5 part 2", |b| {
+        b.iter(|| aoc2015::day_5::part_2(black_box(&input)))
+    });
 }
 
 pub fn complete_benchmark(c: &mut Criterion) {
@@ -42,6 +50,7 @@ pub fn complete_benchmark(c: &mut Criterion) {
         read_input("res/2015/day_2.txt").unwrap(),
         read_input("res/2015/day_3.txt").unwrap(),
         read_input("res/2015/day_4.txt").unwrap(),
+        read_input("res/2015/day_5.txt").unwrap(),
     ];
 
     // Trim the day 4 input
@@ -58,6 +67,8 @@ pub fn complete_benchmark(c: &mut Criterion) {
             aoc2015::day_3::part_2(black_box(&inputs[2]));
             aoc2015::day_4::part_1(black_box(&inputs[3]));
             aoc2015::day_4::part_2(black_box(&inputs[3]));
+            aoc2015::day_5::part_1(black_box(&inputs[3]));
+            aoc2015::day_5::part_2(black_box(&inputs[3]));
         })
     });
 }

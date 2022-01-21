@@ -20,22 +20,19 @@ where
             && self
                 .as_ref()
                 .chars()
-                .fold(
-                    (None, 0),
-                    |state, current_char| {
-                        let (ref last_char, mut num_pairs) = state;
-                        if let Some(l) = last_char {
-                            if *l == current_char {
-                                num_pairs += 1;
-                            }
-                            if NAUGHTY_PAIRS.contains(&(*l, current_char)) {
-                                has_naughty_pair = true;
-                            }
+                .fold((None, 0), |state, current_char| {
+                    let (ref last_char, mut num_pairs) = state;
+                    if let Some(l) = last_char {
+                        if *l == current_char {
+                            num_pairs += 1;
                         }
+                        if NAUGHTY_PAIRS.contains(&(*l, current_char)) {
+                            has_naughty_pair = true;
+                        }
+                    }
 
-                        (Some(current_char), num_pairs)
-                    },
-                )
+                    (Some(current_char), num_pairs)
+                })
                 .1
                 > 0
             && !has_naughty_pair
@@ -52,9 +49,9 @@ trait Nice2 {
 
 fn has_two_pairs(s: &str) -> bool {
     for start in 0..(s.len() - 2) {
-        let pair = &s[start..start+2];
+        let pair = &s[start..start + 2];
         for next in (start + 2)..(s.len() - 1) {
-            if pair == &s[next..next+2] {
+            if pair == &s[next..next + 2] {
                 return true;
             }
         }
@@ -69,29 +66,28 @@ where
 {
     fn is_nice(&self) -> bool {
         has_two_pairs(self.as_ref())
-            && self.as_ref()
-                   .chars()
-                   .fold(
-                       (None, None, false),
-                       |state, current_char| {
-                           let (prev_prev, prev, valid) = state;
-                           if valid {
-                               return state;
-                           }
+            && self
+                .as_ref()
+                .chars()
+                .fold((None, None, false), |state, current_char| {
+                    let (prev_prev, prev, valid) = state;
+                    if valid {
+                        return state;
+                    }
 
-                           if let Some(prev_prev) = prev_prev {
-                               if prev_prev == current_char {
-                                   return (None, None, true);
-                               }
+                    if let Some(prev_prev) = prev_prev {
+                        if prev_prev == current_char {
+                            return (None, None, true);
+                        }
 
-                               (prev, Some(current_char), false)
-                           } else if let Some(_) = prev {
-                               (prev, Some(current_char), false)
-                           } else {
-                               (None, Some(current_char), false)
-                           }
-                       },
-                   ).2
+                        (prev, Some(current_char), false)
+                    } else if let Some(_) = prev {
+                        (prev, Some(current_char), false)
+                    } else {
+                        (None, Some(current_char), false)
+                    }
+                })
+                .2
     }
 }
 
